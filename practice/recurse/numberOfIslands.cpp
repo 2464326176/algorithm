@@ -3,7 +3,7 @@
  * @Date: 2022-09-05 01:26:11
  * @LastEditTime: 2022-09-05 01:49:16
  * @Description:
- * @FilePath: \algorithm\leetCode\recurse\numberOfIslands.cpp
+ * @FilePath: \algorithm\practice\recurse\numberOfIslands.cpp
  */
 #include <iostream>
 #include <vector>

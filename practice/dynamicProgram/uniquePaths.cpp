@@ -3,7 +3,7 @@
  * @Date: 2022-09-06 01:02:55
  * @LastEditTime: 2022-09-06 01:12:02
  * @Description:
- * @FilePath: \algorithm\leetCode\dynamicProgram\uniquePaths.cpp
+ * @FilePath: \algorithm\practice\dynamicProgram\uniquePaths.cpp
  */
 #include <iostream>
 

@@ -3,7 +3,7 @@
  * @Date: 2022-08-30 23:16:16
  * @LastEditTime: 2022-08-31 00:41:47
  * @Description:
- * @FilePath: \algorithm\leetCode\string\isUnique.cpp
+ * @FilePath: \algorithm\practice\string\isUnique.cpp
  */
 #include <iostream>
 #include <string>

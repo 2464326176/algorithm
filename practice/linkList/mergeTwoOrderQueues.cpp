@@ -3,7 +3,7 @@
  * @Date: 2022-09-01 00:16:17
  * @LastEditTime: 2022-09-01 00:28:58
  * @Description: 
- * @FilePath: \algorithm\leetCode\linkList\mergeTwoOrderQueues.cpp
+ * @FilePath: \algorithm\practice\linkList\mergeTwoOrderQueues.cpp
  */
 #include <iostream>
 #include <vector>

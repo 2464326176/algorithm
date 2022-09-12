@@ -3,7 +3,7 @@
  * @Date: 2022-09-03 20:27:53
  * @LastEditTime: 2022-09-04 01:10:07
  * @Description: 
- * @FilePath: \algorithm\leetCode\doublePointer\reverseString.cpp
+ * @FilePath: \algorithm\practice\doublePointer\reverseString.cpp
  */
 #include <array>
 #include <iostream>

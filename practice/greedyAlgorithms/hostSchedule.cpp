@@ -3,7 +3,7 @@
  * @Date: 2022-08-31 22:42:00
  * @LastEditTime: 2022-08-31 23:11:29
  * @Description: 
- * @FilePath: \algorithm\leetCode\greedyAlgorithms\hostSchedule.cpp
+ * @FilePath: \algorithm\practice\greedyAlgorithms\hostSchedule.cpp
  */
 
 #include <iostream>

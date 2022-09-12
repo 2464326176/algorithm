@@ -3,7 +3,7 @@
  * @Date: 2022-08-30 00:17:15
  * @LastEditTime: 2022-09-03 00:04:51
  * @Description: 
- * @FilePath: \algorithm\leetCode\stack\infox2suffix.cpp
+ * @FilePath: \algorithm\practice\stack\infox2suffix.cpp
  */
 #include <ctype.h>
 #include <iostream>
