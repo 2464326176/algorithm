@@ -5,30 +5,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 #define MaxBookNum  1000
 #define MaxKeyNum   2500
 #define MaxLineLen  500
 #define MaxWordNum  10
 
-
 typedef struct {
-    char *item[];
-    int last;
-}WordListType;
+  char *item[];
+  int last;
+} WordListType;
 
 typedef int ElemType;
 
 typedef struct {
-    HString key;
-    LinkList bnolist;
-}IdxTermType;
+  HString key;
+  LinkList bnolist;
+} IdxTermType;
 
 typedef struct {
-    IdxTermType item[MaxKeyNum + 1];
-    int last;
+  IdxTermType item[MaxKeyNum + 1];
+  int last;
 };
-
 
 char *buf;              //
 WordListType wdList;

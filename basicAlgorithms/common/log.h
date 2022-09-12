@@ -6,10 +6,8 @@
 #ifndef CESSENCE_LOG_H
 #define CESSENCE_LOG_H
 
-
 class log {
 
 };
-
 
 #endif //CESSENCE_LOG_H
