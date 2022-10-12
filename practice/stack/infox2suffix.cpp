@@ -10,6 +10,11 @@
 #include <stack>
 #include <string>
 
+int solve(string s) {
+
+
+}
+
 char getPriority(char a, char b) {
     if (a == '(' && b == ')') {
         return '=';

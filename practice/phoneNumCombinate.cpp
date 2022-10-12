@@ -66,6 +66,5 @@ int main() {
     string s1("23");
     Solution s;
     s.letterCombinations(s1);
-
     return 0;
 }

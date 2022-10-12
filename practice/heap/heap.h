@@ -7,9 +7,12 @@
 
 #ifndef ALGORITHM_PRACTICE_HEAP_HEAP_H
 #define ALGORITHM_PRACTICE_HEAP_HEAP_H
+#include <vector>
+#include <queue>
 
-class heap {
+using namespace std;
 
-};
+vector<int> GetLeastNumbers_Solution(vector<int> input, int k); // 最小的k个元素
 
+int findKth(vector<int> a, int n, int K); // 第k个最大的数
 #endif //ALGORITHM_PRACTICE_HEAP_HEAP_H

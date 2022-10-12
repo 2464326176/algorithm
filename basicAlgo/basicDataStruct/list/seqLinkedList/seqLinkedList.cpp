@@ -78,7 +78,7 @@ Status deleteList(SqList &list, int pos, ElemType &elem) {
 }
 
 /*
- * Function description: find elem pos
+ * Function description: search elem pos
  * @param list
  * @param elem
  *
@@ -96,7 +96,7 @@ Status getElemPos(SqList &list, ElemType elem) {
 }
 
 /*
- * Function description: find elem of list
+ * Function description: search elem of list
  */
 Status printfList(SqList &list) {
     if ((nullptr == list.elem) || (list.length < 1)) {

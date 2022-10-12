@@ -3,4 +3,4 @@ project(algorithm)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(cEssence practice/dynamicProgram/getLongestPalindrome.cpp)
+add_executable(cEssence practice/backTraceAlgorithms/arraySubset.cpp)
