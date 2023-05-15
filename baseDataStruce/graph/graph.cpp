@@ -1,29 +1,12 @@
 /*
  * @Author: yh
  * @Date: 2022/10/13 23:26
- * @Description: 
- * @FilePath: \algorithm\practice\graph\graph.cpp
+ * @Description:
+ * @FilePath: \algorithm\baseDataStruce\graph\graph.cpp
  */
-#include <iostream>
-#include <vector>
-#include <queue>
-#include <set>
-#include <array>
-#include <map>
-#include <unordered_map>
-#include <algorithm>
+#include "graph.h"
 
-using namespace std;
-/**
- * 海洋岛屿地图可以用由0、1组成的二维数组表示，水平或者竖直方向相连的一组1表示一个岛屿。
- * 请计算最大的岛屿的面积（即岛屿中1的数目）。例如，在图15.5中有4个岛屿，其中最大的岛屿的面积为5。
- */
-struct Coordinate {
-    int x;
-    int y;
-};
-
-int getArea(const vector<vector<int>> &grid, vector<vector<bool>> &visited, int i, int j) {
+int getAreaByBfs(const vector<vector<int>> &grid, vector<vector<bool>> &visited, int i, int j) {
     visited[i][j] = true;
     queue<Coordinate> que;
     que.push({i, j});
@@ -38,18 +21,65 @@ int getArea(const vector<vector<int>> &grid, vector<vector<bool>> &visited, int 
         Coordinate coordinate = que.front();
         que.pop();
         ++area;
-        for (const auto &dirsIt: dirs) {
+        for (const auto &dirsIt : dirs) {
             int r = coordinate.x + dirsIt[0];
             int c = coordinate.y + dirsIt[1];
-            if (r >= 0 && r < grid.size()
-                && c >= 0 && c < grid[0].size()
-                && grid[r][c] == 1 && !visited[r][c]) {
+            if (r >= 0 && r < grid.size() && c >= 0 && c < grid[0].size() && grid[r][c] == 1 && !visited[r][c]) {
                 que.push({r, c});
                 visited[r][c] = true;
             }
-
         }
     }
+    return area;
+}
+
+int getAreaByDfs1(const vector<vector<int>> &grid, vector<vector<bool>> &visited, int i, int j) {
+    if (!grid[i][j]) {
+        return 0;
+    }
+
+    visited[i][j] = true;
+    int area = 1;
+    int rows = grid.size();
+    int cols = grid[0].size();
+    int dirs[][2]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    for (auto &dir : dirs) {
+        int r = i + dir[0];
+        int c = j + dir[1];
+        if (r >= 0 && r < rows && c >= 0 && c < cols && !visited[r][c] && grid[r][c]) {
+            area += getAreaByDfs1(grid, visited, r, c);
+        }
+    }
+
+    return area;
+}
+
+int getAreaByDfs2(const vector<vector<int>> &grid, vector<vector<bool>> &visited, int i, int j) {
+    if (!grid[i][j]) {
+        return 0;
+    }
+
+    int area = 1;
+    stack<Coordinate> st;
+    int rows = grid.size();
+    int cols = grid[0].size();
+    st.push({i, j});
+    int dirs[][2]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    while (st.size()) {
+        Coordinate cd = st.top();
+        st.pop();
+        visited[cd.x][cd.y] = true;
+
+        for (auto &dir : dirs) {
+            int r = cd.x + dir[0];
+            int c = cd.y + dir[1];
+            if (r >= 0 && r < rows && c >= 0 && c < cols && !visited[r][c] && grid[r][c]) {
+                ++area;
+                st.push({r, c});
+            }
+        }
+    }
+
     return area;
 }
 
@@ -61,8 +91,9 @@ int maxAreaOfIsland(vector<vector<int>> grid) {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
             if (grid[i][j] == 1 && !visited[i][j]) {
-                int area = getArea(grid, visited, i, j);
-                maxArea = std::max(maxArea, area);
+                // maxArea = std::max(maxArea, getAreaByBfs(grid, visited, i, j));
+                // maxArea = std::max(maxArea, getAreaByDfs1(grid, visited, i, j));
+                maxArea = std::max(maxArea, getAreaByDfs2(grid, visited, i, j));
             }
         }
     }
@@ -82,7 +113,7 @@ int bfs(set<int> &setNums, int num) {
         int num = que.front();
         que.pop();
         array<int, 2> neighbors{num - 1, num + 1};
-        for (int neighbor: neighbors) {
+        for (int neighbor : neighbors) {
             if (setNums.find(neighbor) != setNums.end()) {
                 que.push(neighbor);
                 setNums.erase(neighbor);
@@ -95,7 +126,7 @@ int bfs(set<int> &setNums, int num) {
 
 int longestConsecutive(vector<int> nums) {
     set<int> setNums;
-    for (const int &num: nums) {
+    for (const int &num : nums) {
         setNums.insert(num);
     }
 
@@ -119,7 +150,7 @@ vector<int> findOrder(int numCourses, vector<vector<int>> prerequisites) {
     // 构造树
     unordered_multimap<int, int> graph;
     vector<int> inDegrees(numCourses, 0);
-    for (auto &it: prerequisites) {
+    for (auto &it : prerequisites) {
         graph.insert({it[1], it[0]});
         inDegrees[it[0]]++;
     }
@@ -140,10 +171,10 @@ vector<int> findOrder(int numCourses, vector<vector<int>> prerequisites) {
         auto range = graph.equal_range(course);
 
         for_each(range.first, range.second, [&](unordered_multimap<int, int>::value_type &x) {
-          inDegrees[x.second]--;
-          if (inDegrees[x.second] == 0) {
-              que.push(x.second);
-          }
+            inDegrees[x.second]--;
+            if (inDegrees[x.second] == 0) {
+                que.push(x.second);
+            }
         });
         graph.erase(course);
     }
@@ -223,18 +254,10 @@ int findCircleNum1(int (*m)[3], int length) {
     return ret;
 }
 
+// int main() {
 
-int main() {
-//    vector<vector<int>> graph {
-//        {1, 1, 0, 0, 1},
-//        {1, 0, 0, 1, 0},
-//        {1, 1, 0, 1, 0},
-//        {0, 0, 1, 0, 0},
-//    };
-    //std::cout << maxAreaOfIsland(graph);
-
-    //vector<int> nums{10, 5, 9, 2, 4, 3};
-    //std::cout << longestConsecutive(nums);
+// vector<int> nums{10, 5, 9, 2, 4, 3};
+// std::cout << longestConsecutive(nums);
 //    vector<vector<int>> prerequisites{
 //        {1, 0},
 //        {2, 0},
@@ -247,11 +270,67 @@ int main() {
 //    for(auto &it : findOrder(6, prerequisites)) {
 //        cout << it << " ";
 //    }
-    int m[][3]{
-        {1, 1, 0},
-        {1, 1, 0},
-        {0, 0, 1}
+//     int m[][3]{
+//         {1, 1, 0},
+//         {1, 1, 0},
+//         {0, 0, 1}
+//     };
+//     std::cout << findCircleNum1(m, 3);
+//     return 0;
+// }
+
+int longestIncPath(const vector<vector<int>> &matrix) {
+    int rows = matrix.size();
+    int cols = matrix[0].size();
+    if (0 == rows || 0 == cols) {
+        return 0;
+    }
+
+    int ret = 0;
+    vector<vector<int>> matLengths(rows, vector<int>(cols, 0));
+
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            ret = std::max(ret, dfs(matrix, matLengths, i, j));
+        }
+    }
+    return ret;
+}
+
+int dfs(const vector<vector<int>> &matrix, vector<vector<int>> &matLengths, int i, int j) {
+    if (0 != matLengths[i][j]) {
+        return matLengths[i][j];
+    }
+
+    int length = 1;
+    int rows = matrix.size();
+    int cols = matrix[0].size();
+    int dirs[][2]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+    for (auto *dir : dirs) {
+        int r = i + dir[0];
+        int c = j + dir[1];
+        if (r >= 0 && r < rows && c >= 0 && c < cols && matrix[r][c] > matrix[i][j]) {
+            length = std::max(length, dfs(matrix, matLengths, r, c) + 1);
+        }
+    }
+
+    matLengths[i][j] = length;
+    return length;
+}
+
+int main(int argc, char **argv) {
+    vector<vector<int>> matrix = {
+        {3, 4, 5}, {4, 2, 8}, {5, 6, 9}, {3, 7, 10}, {3, 8, 8}, {11, 9, 1},
     };
-    std::cout << findCircleNum1(m, 3);
+    printf("longestIncPath: %d", longestIncPath(matrix));
+
+    vector<vector<int>> graph{
+        {1, 1, 0, 0, 1},
+        {1, 0, 0, 1, 0},
+        {1, 1, 1, 1, 0},
+        {0, 0, 1, 0, 0},
+    };
+    printf("max area of island: %d", maxAreaOfIsland(graph));
     return 0;
 }
