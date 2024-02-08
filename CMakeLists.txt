@@ -3,4 +3,5 @@ project(algorithm)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(cEssence baseDataStruce/graph/graph.cpp)
+add_executable(cEssence
+        main.cpp)

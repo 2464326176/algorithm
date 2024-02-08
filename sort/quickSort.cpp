@@ -2,7 +2,7 @@
  * @Author: yh
  * @Date: 2022/11/3 0:28
  * @Description: 
- * @FilePath: quickSort.cpp
+ * @FilePath: \algorithm\sort\quickSort.cpp
  */
 #include <iostream>
 #include <vector>
